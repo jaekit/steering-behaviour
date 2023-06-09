@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://c62npgb20v3e"]
+
+[ext_resource type="Script" path="res://world.gd" id="1_7v7ix"]
+[ext_resource type="Script" path="res://player.gd" id="2_2psqm"]
+[ext_resource type="Texture2D" uid="uid://bsfxyyowon74i" path="res://icon.svg" id="2_buq5q"]
+[ext_resource type="PackedScene" uid="uid://gllta4bfjmkk" path="res://enemy2.tscn" id="4_sn0bb"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_1v7o7"]
+vertices = PackedVector2Array(184, 187, 184, 65, 773, -133, 775, 511, -378, -133, -241, 67, -379, 513, -243, 186)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 2, 1, 5), PackedInt32Array(6, 4, 5, 7), PackedInt32Array(0, 3, 6, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-378, -133, 773, -133, 775, 511, -379, 513), PackedVector2Array(-241, 67, 184, 65, 184, 187, -243, 186)])
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f4rsm"]
+radius = 30.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yegjm"]
+size = Vector2(426, 121)
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_7v7ix")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(378, 134)
+navigation_polygon = SubResource("NavigationPolygon_1v7o7")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+motion_mode = 1
+script = ExtResource("2_2psqm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CircleShape2D_f4rsm")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+visible = false
+texture = ExtResource("2_buq5q")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(352, 264)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_yegjm")
+
+[node name="Enemy" parent="." instance=ExtResource("4_sn0bb")]
+position = Vector2(656, 104)
+max_speed = 200.0
+kite_radius = 175.0
+avoidance_strength = 2000.0
+circling_strength = 15.0
+
+[node name="Enemy2" parent="." instance=ExtResource("4_sn0bb")]
+position = Vector2(672, 152)
+max_speed = 200.0
+kite_radius = 190.0
+avoidance_strength = 2000.0
+circling_strength = -15.0

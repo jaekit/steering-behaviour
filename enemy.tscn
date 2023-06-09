@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bysryeg5snxnh"]
+
+[ext_resource type="Script" path="res://enemy.gd" id="1_by42f"]
+[ext_resource type="Script" path="res://interest_area.gd" id="2_oxnrs"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qfeq1"]
+radius = 50.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pwayu"]
+radius = 200.0
+
+[node name="Enemy" type="CharacterBody2D"]
+position = Vector2(649, 396)
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_by42f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qfeq1")
+
+[node name="InterestArea" type="Area2D" parent="."]
+script = ExtResource("2_oxnrs")
+proximity = 2.0
+rotate = -1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InterestArea"]
+shape = SubResource("CircleShape2D_pwayu")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+
+[connection signal="activated" from="InterestArea" to="." method="_on_interest_area_activated"]

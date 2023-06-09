@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://gllta4bfjmkk"]
+
+[ext_resource type="Script" path="res://enemy2.gd" id="1_8q2ro"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_noahi"]
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_8q2ro")
+max_speed = 50.0
+mass = 1.0
+avoidance_strength = 1.0
+circling_strength = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_noahi")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
